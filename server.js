@@ -1,7 +1,7 @@
 // Routes
 const express = require('express');
 const mongoose = require('mongoose');
-const Manga = require('./models/Manga.js');
+const Cat = require('./models/cats.js');
 const app = express();
 const port = process.env.PORT || 3000;
 const dotenv = require("dotenv");
@@ -16,16 +16,17 @@ mongoose.connection.on("connected", () => {
 // Middleware
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/manga/new.ejs', (req, res) => {
-  res.render('newManga.ejs');
+app.get('/cats/new', (req, res) => {
+  res.render('fruits/new.ejs');
 });
 
-app.post('/manga', async (req, res) => {
-  const { title, genre, chapters, rating, description, imageUrl } = req.body;
-  const newManga = new Manga({ title, genre, chapters, rating, description, imageUrl });
-  await newManga.save();
-  res.redirect('/manga');
-});
+app.post('/cats', async (req, res) => {
+    const { name, breed, age, description, imageUrl } = req.body;
+    const newCat = new Cat({ name, breed, age, description, imageUrl });
+    await newCat.save();
+    res.redirect('/cats');
+  });
+  
 
 app.get('/', (req, res) => {
   res.send('Server is running');
