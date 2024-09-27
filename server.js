@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const morgan = require('morgan');
 const path = require('path');
-const Cat = require('./models/cats.js');
+const Cat = require('./models/Cat.js');
 
 // Connect
 const port = process.env.PORT || 3000;
@@ -31,7 +31,7 @@ app.get('/', (req, res) => { // homepage
     res.render('index.ejs');
   });
 
-app.get('/cats/new', (req, res) => { // Cat form
+app.get('/cats/new.ejs', (req, res) => { // Cat form
     // res.send('New Cat Form'); // test site
     res.render('cats/new.ejs');
   });
@@ -59,9 +59,13 @@ app.post('/cats', async (req, res) => { // Create cat
     res.redirect('/cats');
 });
     
+app.delete('/cats/:catId', async (req, res) => { // Delete cat
+    await Cat.findByIdAndDelete(req.params.catId);
+    res.redirect('/cats');
+});
+
 app.get('/cats', async (req, res) => { // Cat index page
     const allCats = await Cat.find({});
-    console.log(allCats);
-     res.render('cats/index.ejs', { cat: allCats });
+     res.render('cats/index.ejs', { cats: allCats });
 });
 

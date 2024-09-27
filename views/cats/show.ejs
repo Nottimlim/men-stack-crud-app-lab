@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= cat.name %></title>
+</head>
+<body>
+  <h1><%= cat.name %></h1>
+  <p>Breed: <%= cat.breed %></p>
+  <p>Age: <%= cat.age %></p>
+  <p>Description: <%= cat.description %></p>
+  <img src="<%= cat.imageUrl %>" alt="<%= cat.name %>">
+  <a href="/cats/<%= cat._id %>/edit">Edit</a>
+  <form action="/cats/<%= cat._id %>?_method=DELETE" method="POST">
+    <button type="submit">Delete</button>
+  </form>
+  <a href="/cats">Back to list</a>
+</body>
+</html>
